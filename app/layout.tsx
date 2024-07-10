@@ -26,7 +26,8 @@ export default function RootLayout({
     <ClerkProvider>
       <html lang="en">
         <body className={outfit.className}>
-          <NextTopLoader color="#000" />        
+          <NextTopLoader color="#000" />   
+            
           {children}
         </body>
       </html>
