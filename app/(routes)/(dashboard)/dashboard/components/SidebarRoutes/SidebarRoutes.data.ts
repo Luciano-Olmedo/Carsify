@@ -1,4 +1,4 @@
-import { Calendar, Car } from "lucide-react"
+import { Calendar, Car, Heart } from "lucide-react"
 
 
 export const dataGeneralSidebar = [
@@ -10,13 +10,13 @@ export const dataGeneralSidebar = [
     },
     {
         icon: Calendar,
-        label:"Cars",
+        label:"Cars Reserves",
         href:"/reserves"
 
     },
     {
-        icon: Car,
-        label:"Cars",
+        icon: Heart,
+        label:"Loved Cars",
         href:"/loved-cars"
 
     },
