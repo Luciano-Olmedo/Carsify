@@ -1,3 +1,4 @@
+import { NavbarDashboard } from "./dashboard/components/NavbarDashboard";
 import { Sidebar } from "./dashboard/components/Sidebar/Sidebar";
 
 
@@ -12,7 +13,7 @@ export default function LayoutDashBoard({
         <Sidebar/>
       </div>
       <div className="w-full h-full lg:ml-80">
-        NavbarDashBoard
+        <NavbarDashboard/>
         <div className="p-6 h-max">{children}</div>
       </div>
     </div>
