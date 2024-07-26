@@ -1,8 +1,9 @@
 "use client";
 import { Separator } from "@/components/ui/separator";
 import { useAuth } from "@clerk/nextjs";
-import { dataAdminSidebar, dataGeneralSidebar } from "./SidebarRoutes.data";
+import {  dataAdminSidebar, dataGeneralSidebar } from "./SidebarRoutes.data";
 import { Sidebaritem } from "./Sidebaritem";
+
 
 export function SidebarRoutes() {
   const { userId } = useAuth();
