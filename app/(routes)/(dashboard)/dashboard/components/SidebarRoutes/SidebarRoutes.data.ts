@@ -22,12 +22,12 @@ export const dataAdminSidebar = [
   {
     icon: ClipboardPenLine,
     label: "Manage Your Cars",
-    href: "dashboard/admin/cars-manager",
+    href: "/dashboard/admin/cars-manager",
   },
   {
     icon: BookText,
     label: "All Reserves",
-    href: "/allreserves",
+    href: "/dashboard/admin/cars-manager",
   },
 ];
 
