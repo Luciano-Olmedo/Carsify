@@ -22,8 +22,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { UploadButton } from "@/utils/uploadthing";
+import { useState } from "react";
 
 export function FormAddCar() {
+  const [photoUploaded, setPhotoUploaded] = useState(false);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -41,6 +44,8 @@ export function FormAddCar() {
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     console.log(values);
   };
+
+  const {isValid} = form.formState;
 
   return (
     <Form {...form}>
@@ -89,14 +94,14 @@ export function FormAddCar() {
                   </FormControl>
                   <SelectContent>
                     <SelectItem value="manual">Manual</SelectItem>
-                    <SelectItem value="automatic">Automátic</SelectItem>                    
+                    <SelectItem value="automatic">Automátic</SelectItem>
                   </SelectContent>
-                </Select>              
+                </Select>
                 <FormMessage />
               </FormItem>
             )}
           />
-           <FormField
+          <FormField
             control={form.control}
             name="people"
             render={({ field }) => (
@@ -113,11 +118,11 @@ export function FormAddCar() {
                   </FormControl>
                   <SelectContent>
                     <SelectItem value="2">2</SelectItem>
-                    <SelectItem value="4">4</SelectItem>    
-                    <SelectItem value="6">6</SelectItem>                  
-                    <SelectItem value="8">8</SelectItem>  
+                    <SelectItem value="4">4</SelectItem>
+                    <SelectItem value="6">6</SelectItem>
+                    <SelectItem value="8">8</SelectItem>
                   </SelectContent>
-                </Select>              
+                </Select>
                 <FormMessage />
               </FormItem>
             )}
@@ -139,11 +144,11 @@ export function FormAddCar() {
                   </FormControl>
                   <SelectContent>
                     <SelectItem value="gasoil">Gasolin</SelectItem>
-                    <SelectItem value="diesel">Diesel</SelectItem>    
-                    <SelectItem value="electric">Electric</SelectItem>                  
-                    <SelectItem value="hybrid">Hybrid</SelectItem>  
+                    <SelectItem value="diesel">Diesel</SelectItem>
+                    <SelectItem value="electric">Electric</SelectItem>
+                    <SelectItem value="hybrid">Hybrid</SelectItem>
                   </SelectContent>
-                </Select>              
+                </Select>
                 <FormMessage />
               </FormItem>
             )}
@@ -165,18 +170,61 @@ export function FormAddCar() {
                   </FormControl>
                   <SelectContent>
                     <SelectItem value="sedan">Sedán</SelectItem>
-                    <SelectItem value="suv">SUV</SelectItem>    
-                    <SelectItem value="coupe">Coupé</SelectItem>                  
-                    <SelectItem value="familiar">Familiar</SelectItem>  
-                    <SelectItem value="luxe">De luxe</SelectItem>  
+                    <SelectItem value="suv">SUV</SelectItem>
+                    <SelectItem value="coupe">Coupé</SelectItem>
+                    <SelectItem value="familiar">Familiar</SelectItem>
+                    <SelectItem value="luxe">De luxe</SelectItem>
                   </SelectContent>
-                </Select>              
+                </Select>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="photo"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Car Image</FormLabel>
+                <FormControl>
+                  {photoUploaded ? (
+                    <p>Image Uploaded !</p>
+                  ) : (
+                    <UploadButton
+                      className="rounded-lg bg-slate-600/20 text-slate-800 outline"
+                      {...field}
+                      endpoint="photo"
+                      onClientUploadComplete={(res) => {
+                        form.setValue("photo", res?.[0].url);
+                        setPhotoUploaded(true);
+                      }}
+                      onUploadError={(error: Error) => {
+                        console.log(error);
+                      }}
+                    />
+                  )}
+                </FormControl>
+
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="priceDay"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Price per day</FormLabel>
+                  <FormControl>
+                      <Input placeholder="$5000" type="number" {...field}/>
+                  </FormControl>
+
                 <FormMessage />
               </FormItem>
             )}
           />
         </div>
-        <Button type="submit">Submit</Button>
+        <Button type="submit" className="w-full mt-5" disabled={!isValid}>Alquilar Vehículo</Button>
       </form>
     </Form>
   );
