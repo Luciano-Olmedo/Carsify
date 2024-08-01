@@ -24,9 +24,17 @@ import {
 } from "@/components/ui/select";
 import { UploadButton } from "@/utils/uploadthing";
 import { useState } from "react";
+import { FormAddCarProps } from "./FormAddCar.types";
+import { toast } from "@/components/ui/use-toast";
+import axios from "axios"
+import { useRouter } from "next/navigation";
 
-export function FormAddCar() {
+
+export function FormAddCar(props: FormAddCarProps) {
+  const { setOpenDialog } = props;
   const [photoUploaded, setPhotoUploaded] = useState(false);
+  const router = useRouter()
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -42,10 +50,19 @@ export function FormAddCar() {
   });
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    console.log(values);
+    setOpenDialog(false);
+    try {
+      await axios.post(`/api/car`, values)
+      toast({
+        title: "Vehículo alquilado  "
+      })
+      router.refresh()
+    } catch (error) {
+      toast({ title: "algun error", variant: "destructive" });
+    }
   };
 
-  const {isValid} = form.formState;
+  const { isValid } = form.formState;
 
   return (
     <Form {...form}>
@@ -215,16 +232,18 @@ export function FormAddCar() {
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Price per day</FormLabel>
-                  <FormControl>
-                      <Input placeholder="$5000" type="number" {...field}/>
-                  </FormControl>
+                <FormControl>
+                  <Input placeholder="$5000" type="number" {...field} />
+                </FormControl>
 
                 <FormMessage />
               </FormItem>
             )}
           />
         </div>
-        <Button type="submit" className="w-full mt-5" disabled={!isValid}>Alquilar Vehículo</Button>
+        <Button type="submit" className="w-full mt-5" disabled={!isValid}>
+          Alquilar Vehículo
+        </Button>
       </form>
     </Form>
   );
