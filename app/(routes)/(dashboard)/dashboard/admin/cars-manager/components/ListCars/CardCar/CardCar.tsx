@@ -14,6 +14,7 @@ import {
 import { CardCarProps } from "./CardCar.type";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { ButtonEditCar } from "./ButtonEditCar";
 
 export function CardCar(props: CardCarProps) {
   const { car } = props;
@@ -70,10 +71,7 @@ export function CardCar(props: CardCarProps) {
           Delete
           <Trash className="w-4 h-4 " strokeWidth={1} />
         </Button>
-        <Button variant="outline" onClick={() => console.log("Delete")}>
-          Edit Car
-          <Pencil className="w-4 h-4 " strokeWidth={1} />
-        </Button>
+        <ButtonEditCar carData={car}/>
       </div>
       {car.isPublish ? 
       <Button 
