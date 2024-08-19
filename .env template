@@ -9,5 +9,5 @@ NEXT_PUBLIC_CLERK_SIGN_UP_URL=/sign-up
 UPLOADTHING_SECRET=
 UPLOADTHING_APP_ID=
 
-//Generate database prefer from NeonTech
+//Generate database preffer from NeonTech(postgreSql)
 DATABASE_URL=""
